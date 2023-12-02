@@ -45,11 +45,11 @@ public class SocketServidorHilo {
 		return peliculas;
 	}
 
-	public synchronized void addPelicula(Pelicula pelicula) {
+	public synchronized static void addPelicula(Pelicula pelicula) {
 		peliculas.add(pelicula);
 	}
 	
-	public synchronized Pelicula getPeliculaById(int id) {
+	public synchronized static Pelicula getPeliculaById(int id) {
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getId() == id) {
 				return pelicula;
@@ -58,7 +58,7 @@ public class SocketServidorHilo {
 		return null;
 	}
 	
-	public synchronized Pelicula getPeliculaByTitulo(String titulo) {
+	public synchronized static Pelicula getPeliculaByTitulo(String titulo) {
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getTitulo().trim().equalsIgnoreCase(titulo)) {
 				return pelicula;
@@ -67,7 +67,7 @@ public class SocketServidorHilo {
 		return null;
 	}
 	
-	public synchronized List<Pelicula> getPeliculasByDirector(String director) {
+	public synchronized static List<Pelicula> getPeliculasByDirector(String director) {
 		List<Pelicula> peliculasDirector = new ArrayList<>();
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getDirector().trim().equalsIgnoreCase(director)) {
