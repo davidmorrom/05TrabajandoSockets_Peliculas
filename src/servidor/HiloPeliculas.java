@@ -73,7 +73,6 @@ public class HiloPeliculas implements Runnable {
 								break;
 							case "GETDIRECTOR":
 								salida.println(SocketServidorHilo.getPeliculasByDirector(director));
-								salida.println("OK");
 								break;
 							default:
 								salida.println("ERROR1");

@@ -14,12 +14,12 @@ public class SocketClienteHilo {
 	public static final String IP_SERVER = "localhost";
 
 	public static void main(String[] args) {
-		System.out.println("        APLICACI�N CLIENTE         ");
+		System.out.println("        APLICACIÓN CLIENTE         ");
 		System.out.println("-----------------------------------");
 
 		InetSocketAddress direccionServidor = new InetSocketAddress(IP_SERVER, PUERTO);
 
-		try (Scanner sc = new Scanner(System.in)) {
+		try{
 
 			System.out.println("CLIENTE: Esperando a que el servidor acepte la conexi�n");
 			Socket socketAlServidor = new Socket();
@@ -64,12 +64,13 @@ public class SocketClienteHilo {
 					System.out.println(texto);
 					break;
 				case 4:
+					Scanner sc = new Scanner(System.in);
 					System.out.println("Introduce el titulo de la pelicula");
-					String titulo2 = sc2.nextLine();
+					String titulo2 = sc.nextLine();
 					System.out.println("Introduce el director de la pelicula");
-					String director2 = sc2.next();
+					String director2 = sc.nextLine();
 					System.out.println("Introduce el precio de la pelicula");
-					double precio = sc2.nextDouble();
+					double precio = sc.nextDouble();
 					salida.println("ADD#" + titulo2 + ";" + director2 + ";" + precio);
 					texto = entradaBuffer.readLine();
 					System.out.println(texto);

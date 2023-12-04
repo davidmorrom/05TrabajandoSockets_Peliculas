@@ -10,18 +10,18 @@ import java.util.List;
 
 public class SocketServidorHilo {
 	public static final int PUERTO = 2019;
-	private static int idActual = 1;
+	private static int idActual = 0;
 	private static List<Pelicula> peliculas = new ArrayList<>();
 	private static Pelicula peliculaFallo = new Pelicula(0, "No se ha encontrado la pelicula", "", 0.0);
 
 	public static void main(String[] args) {
 		System.out.println("      APLICACIÓN DE SERVIDOR CON HILOS     ");
 		System.out.println("-------------------------------------------");
-		peliculas.add(new Pelicula("El padrino", "Francis Ford Coppola", 7.5));
-		peliculas.add(new Pelicula("Oppenheimer", "Christopher Nolan", 8.5));
-		peliculas.add(new Pelicula("Fast and Furious", "Justin Lin", 6.5));
-		peliculas.add(new Pelicula("Napoléon", "Ridley Scott", 9.5));
-		peliculas.add(new Pelicula("El señor de los anillos", "Peter Jackson", 8.5));
+		peliculas.add(new Pelicula("Batman", "Nolan", 7.5));
+		peliculas.add(new Pelicula("Oppenheimer", "Nolan", 8.5));
+		peliculas.add(new Pelicula("Fast&Furious", "Lin", 6.5));
+		peliculas.add(new Pelicula("Napoleón", "R.Scott", 9.5));
+		peliculas.add(new Pelicula("Barbie", "G.Gerwig", 8.5));
 
 		try (ServerSocket servidor = new ServerSocket()) {
 			InetSocketAddress direccion = new InetSocketAddress(PUERTO);
@@ -77,8 +77,8 @@ public class SocketServidorHilo {
 				peliculasDirector.add(pelicula);
 			}
 		}
-		for (Pelicula pelicula : peliculas) {
-			pelis.concat(pelicula.toString() + ", ");
+		for (Pelicula pelicula : peliculasDirector) {
+			pelis+=pelicula.toString()+", ";
 		}
 		return pelis;
 	}
