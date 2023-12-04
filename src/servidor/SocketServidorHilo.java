@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SocketServidorHilo {
@@ -12,27 +13,27 @@ public class SocketServidorHilo {
 	private static int idActual = 1;
 	private static List<Pelicula> peliculas = new ArrayList<>();
 	private static Pelicula peliculaFallo = new Pelicula(0, "No se ha encontrado la pelicula", "", 0.0);
-	
+
 	public static void main(String[] args) {
 		System.out.println("      APLICACIÓN DE SERVIDOR CON HILOS     ");
-		System.out.println("-------------------------------------------");		
+		System.out.println("-------------------------------------------");
 		peliculas.add(new Pelicula("El padrino", "Francis Ford Coppola", 7.5));
 		peliculas.add(new Pelicula("Oppenheimer", "Christopher Nolan", 8.5));
 		peliculas.add(new Pelicula("Fast and Furious", "Justin Lin", 6.5));
 		peliculas.add(new Pelicula("Napoléon", "Ridley Scott", 9.5));
 		peliculas.add(new Pelicula("El señor de los anillos", "Peter Jackson", 8.5));
 
-		try (ServerSocket servidor = new ServerSocket()){			
+		try (ServerSocket servidor = new ServerSocket()) {
 			InetSocketAddress direccion = new InetSocketAddress(PUERTO);
 			servidor.bind(direccion);
 
 			System.out.println("SERVIDOR: Esperando peticion por el puerto " + PUERTO);
-			
+
 			while (true) {
 				Socket socketAlCliente = servidor.accept();
 				System.out.println("SERVIDOR: peticion numero " + ++idActual + " recibida");
 				new HiloPeliculas(socketAlCliente);
-			}			
+			}
 		} catch (IOException e) {
 			System.err.println("SERVIDOR: Error de entrada/salida");
 			e.printStackTrace();
@@ -41,7 +42,7 @@ public class SocketServidorHilo {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public synchronized static List<Pelicula> getPeliculas() {
 		return peliculas;
 	}
@@ -49,7 +50,7 @@ public class SocketServidorHilo {
 	public synchronized static void addPelicula(Pelicula pelicula) {
 		peliculas.add(pelicula);
 	}
-	
+
 	public synchronized static Pelicula getPeliculaById(int id) {
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getId() == id) {
@@ -58,7 +59,7 @@ public class SocketServidorHilo {
 		}
 		return peliculaFallo;
 	}
-	
+
 	public synchronized static Pelicula getPeliculaByTitulo(String titulo) {
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getTitulo().equalsIgnoreCase(titulo)) {
@@ -67,14 +68,18 @@ public class SocketServidorHilo {
 		}
 		return peliculaFallo;
 	}
-	
-	public synchronized static List<Pelicula> getPeliculasByDirector(String director) {
+
+	public synchronized static String getPeliculasByDirector(String director) {
+		String pelis = "";
 		List<Pelicula> peliculasDirector = new ArrayList<>();
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getDirector().trim().equalsIgnoreCase(director)) {
 				peliculasDirector.add(pelicula);
 			}
 		}
-		return peliculasDirector;
+		for (Pelicula pelicula : peliculas) {
+			pelis.concat(pelicula.toString() + ", ");
+		}
+		return pelis;
 	}
 }

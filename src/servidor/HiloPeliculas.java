@@ -6,34 +6,34 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-public class HiloPeliculas implements Runnable{
+public class HiloPeliculas implements Runnable {
 
 	private Thread hilo;
 	private static int numCliente = 0;
-	private Socket socketAlCliente;	
-	
+	private Socket socketAlCliente;
+
 	public HiloPeliculas(Socket socketAlCliente) {
 		numCliente++;
-		hilo = new Thread(this, "Cliente_"+numCliente);
+		hilo = new Thread(this, "Cliente_" + numCliente);
 		this.socketAlCliente = socketAlCliente;
 		hilo.start();
 	}
-	
+
 	@Override
 	public void run() {
 		System.out.println("Estableciendo comunicacion con " + hilo.getName());
 		PrintStream salida = null;
 		InputStreamReader entrada = null;
 		BufferedReader entradaBuffer = null;
-		
+
 		try {
 			salida = new PrintStream(socketAlCliente.getOutputStream());
 			entrada = new InputStreamReader(socketAlCliente.getInputStream());
 			entradaBuffer = new BufferedReader(entrada);
-			
+
 			String texto = "";
 			boolean continuar = true;
-			
+
 			while (continuar) {
 				Pelicula pelicula;
 				texto = entradaBuffer.readLine();
@@ -72,9 +72,7 @@ public class HiloPeliculas implements Runnable{
 								}
 								break;
 							case "GETDIRECTOR":
-								for (Pelicula p : SocketServidorHilo.getPeliculasByDirector(director)) {
-									salida.println(p.toString());
-								}
+								salida.println(SocketServidorHilo.getPeliculasByDirector(director));
 								salida.println("OK");
 								break;
 							default:
@@ -98,5 +96,5 @@ public class HiloPeliculas implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
+
 }
