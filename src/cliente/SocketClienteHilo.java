@@ -34,41 +34,42 @@ public class SocketClienteHilo {
 			String texto = "";
 			boolean continuar = true;
 			do {
+				Scanner sc2 = new Scanner(System.in);
 				System.out.println("1. Consultar pelicula por id");
 				System.out.println("2. Consultar pelicula por titulo");
 				System.out.println("3. Consultar pelicula por director");
 				System.out.println("4. Agregar pelicula");
 				System.out.println("5. Salir");
-				int eleccion = sc.nextInt();
+				int eleccion = sc2.nextInt();
 				switch (eleccion) {
 				case 1:
 					System.out.println("Introduce el id de la pelicula");
-					int id = sc.nextInt();
+					int id = sc2.nextInt();
 					salida.println("GETID#" + id + ";0;0.0");
 					texto = entradaBuffer.readLine();
 					System.out.println(texto);
 					break;
 				case 2:
 					System.out.println("Introduce el titulo de la pelicula");
-					String titulo = sc.next();
+					String titulo = sc2.next();
 					salida.println("GETTITLE#" + titulo + ";0;0.0");
 					texto = entradaBuffer.readLine();
 					System.out.println(texto);
 					break;
 				case 3:
 					System.out.println("Introduce el director de la pelicula");
-					String director = sc.next();
+					String director = sc2.next();
 					salida.println("GETDIRECTOR#0;" + director + ";0.0");
 					texto = entradaBuffer.readLine();
 					System.out.println(texto);
 					break;
 				case 4:
 					System.out.println("Introduce el titulo de la pelicula");
-					String titulo2 = sc.next();
+					String titulo2 = sc2.nextLine();
 					System.out.println("Introduce el director de la pelicula");
-					String director2 = sc.next();
+					String director2 = sc2.next();
 					System.out.println("Introduce el precio de la pelicula");
-					double precio = sc.nextDouble();
+					double precio = sc2.nextDouble();
 					salida.println("ADD#" + titulo2 + ";" + director2 + ";" + precio);
 					texto = entradaBuffer.readLine();
 					System.out.println(texto);

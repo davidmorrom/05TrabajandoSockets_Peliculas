@@ -1,17 +1,26 @@
 package servidor;
 
 public class Pelicula {
-	private static int id = 0;
+	private static int cont = 0;
+	private int id = 0;
 	private String titulo;
 	private String director;
 	private double precio;
 	
 	public Pelicula(String titulo, String director, double precio) {
-		this.id += 1;
+		this.cont += 1;
+		this.id = cont;
 		this.titulo = titulo;
 		this.director = director;
 		this.precio = precio;
 		
+	}
+	
+	public Pelicula(int id, String titulo, String director, double precio) {
+		this.id = id;
+		this.titulo = titulo;
+		this.director = director;
+		this.precio = precio;
 	}
 
 	public int getId() {
@@ -23,7 +32,7 @@ public class Pelicula {
 	}
 
 	public String getTitulo() {
-		return titulo;
+		return this.titulo;
 	}
 
 	public void setTitulo(String titulo) {

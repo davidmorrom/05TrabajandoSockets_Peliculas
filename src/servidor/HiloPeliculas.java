@@ -35,6 +35,7 @@ public class HiloPeliculas implements Runnable{
 			boolean continuar = true;
 			
 			while (continuar) {
+				Pelicula pelicula;
 				texto = entradaBuffer.readLine();
 				if (texto.trim().equalsIgnoreCase("FIN")) {
 					salida.println("OK");
@@ -55,7 +56,7 @@ public class HiloPeliculas implements Runnable{
 								salida.println("OK");
 								break;
 							case "GETID":
-								Pelicula pelicula = SocketServidorHilo.getPeliculaById(Integer.parseInt(titulo));
+								pelicula = SocketServidorHilo.getPeliculaById(Integer.parseInt(titulo));
 								if (pelicula != null) {
 									salida.println(pelicula.toString());
 								} else {

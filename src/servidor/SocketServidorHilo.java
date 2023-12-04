@@ -11,6 +11,7 @@ public class SocketServidorHilo {
 	public static final int PUERTO = 2019;
 	private static int idActual = 1;
 	private static List<Pelicula> peliculas = new ArrayList<>();
+	private static Pelicula peliculaFallo = new Pelicula(0, "No se ha encontrado la pelicula", "", 0.0);
 	
 	public static void main(String[] args) {
 		System.out.println("      APLICACIÓN DE SERVIDOR CON HILOS     ");
@@ -55,16 +56,16 @@ public class SocketServidorHilo {
 				return pelicula;
 			}
 		}
-		return null;
+		return peliculaFallo;
 	}
 	
 	public synchronized static Pelicula getPeliculaByTitulo(String titulo) {
 		for (Pelicula pelicula : peliculas) {
-			if (pelicula.getTitulo().trim().equalsIgnoreCase(titulo)) {
+			if (pelicula.getTitulo().equalsIgnoreCase(titulo)) {
 				return pelicula;
 			}
 		}
-		return null;
+		return peliculaFallo;
 	}
 	
 	public synchronized static List<Pelicula> getPeliculasByDirector(String director) {
